@@ -1,0 +1,7 @@
+"0","movies = scan(""http://mypage.iu.edu/~mtrosset/StatInfeR/Data/films.dat"")"
+"2","Read 28 items
+"
+"0","mov1956 = movies[1:14]"
+"0","mov1996 = movies[15:28]"
+"0","par(mfrow=c(2,2))"
+"0","qqnorm(mov1956)"

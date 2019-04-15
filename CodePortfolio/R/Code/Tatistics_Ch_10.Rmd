@@ -1,0 +1,37 @@
+---
+title: "STatistics - One Sided and Two Sided t Tests"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+data <- c(0.693,0.662,0.690,0.606,0.570,0.749,0.672,0.628,0.609,0.844,0.654,0.615,0.668,0.601,0.576,0.670,0.606,0.611,0.553,0.933)
+data
+mean(data)
+X = data
+Y = log(data)
+boxplot(X)
+boxplot(Y)
+plot(density(X), main = "Density plot of actual data")
+plot(density(Y), main = "Density plot of data converted into log scale")
+qqnorm(X, main = "Normal Q - Q plot of actual data")
+qqnorm(Y, main = "Normal Q - Q  plot of data converted into log scale")
+```
+
+```{r}
+mu=.618034
+x_bar = mean(X)
+sdX = sd(X)
+x_bar
+sdX
+n = length(data)
+n
+t_stat = ((x_bar - mu)/(sdX/sqrt(n)))
+t_stat
+pval = 2*(1 - pt((t_stat), df = n - 1))
+pval
+```

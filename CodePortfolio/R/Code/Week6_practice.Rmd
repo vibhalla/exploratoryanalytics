@@ -1,0 +1,170 @@
+---
+title: "Week6"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Import the required libraries
+
+
+```{r }
+library(tidyverse)
+```
+
+## Explore mpg
+
+```{r }
+str(mpg)
+```
+## Plot mpg
+```{r }
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class, shape = drv ) )
+```
+## Plot mpg using Stroke
+```{r }
+ggplot(data = mpg, aes(x = displ, y = hwy )) + 
+  geom_point(shape = 21, size = 3, fill = "blue", stroke = 3, colour = "black" )
+
+```
+## Facet Wrap and Facet Grid - 
+### Facet using continuous var created large number of grids while a plot with 2 discrete variables places values only at junctions
+```{r }
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = drv)) + 
+  facet_wrap(~ class, ncol = 2)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = drv), size = 2) + 
+  facet_grid(fl ~ cyl)
+```
+## Trying out facets
+```{r }
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv, color = drv) )
+```
+## Trying out the global mappings
+```{r }
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(mapping = aes(linetype = drv))
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, group = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) + 
+  geom_point() + 
+  geom_smooth(se = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = drv)) + 
+  geom_smooth(se = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = drv)) + 
+  geom_smooth(mapping = aes(linetype = drv),se = FALSE)
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = drv))
+```
+## Explore the diamonds dataset
+```{r}
+str(diamonds)
+```
+## Testing various geom options
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut))
+ggplot(data = diamonds) + 
+  geom_col(mapping = aes(x = cut, y = y, color = cut))
+ggplot(data = diamonds) + 
+  geom_smooth(mapping = aes(x = carat, y = price, color = cut))
+```
+## Testing the porps/groups
+```{r}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "fill")
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+```
+## Box Plots and coord_flip
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, y = price)) + 
+  geom_boxplot()
+ggplot(data = diamonds, mapping = aes(x = cut, y = price)) + 
+  geom_boxplot() +
+  coord_flip()
+ggplot(data = mpg, mapping = aes(x = class, y = hwy )) + 
+  geom_boxplot()
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+  geom_boxplot() +
+  coord_flip()
+```
+## Working with Polar Co-ordinates
+```{r}
+bar <- ggplot(data = diamonds) + 
+  geom_bar(
+    mapping = aes(x = cut, fill = cut), 
+    show.legend = FALSE,
+    width = 1
+  ) + 
+  theme(aspect.ratio = 1) +
+  labs(x = NULL, y = NULL)
+
+bar + coord_flip()
+bar + coord_polar()
+
+bar1 <- ggplot(diamonds,aes(x = cut)) + 
+  geom_bar(width = 1, colour = "black"
+  )  +
+  theme(aspect.ratio = 1) +
+  labs(x = NULL, y = NULL)
+bar1 + coord_polar()
+bar2 <- ggplot(diamonds,aes(x = cut), fill = cut) + 
+  geom_bar(width = 1
+  )  +
+  theme(aspect.ratio = 1) +
+  labs(x = NULL, y = NULL)
+bar2
++ coord_polar(theta = "y")
+```
+
+## Maps
+```{r}
+
+nz <- map_data("nz")
+
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", colour = "black")
+
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", colour = "black") +
+  coord_quickmap()
+
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", colour = "black") +
+  coord_map()
+
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() + 
+   geom_abline() +
+  coord_fixed()
+```

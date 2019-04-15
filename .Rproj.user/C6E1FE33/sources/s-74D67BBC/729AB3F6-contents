@@ -1,0 +1,116 @@
+---
+title: "Stats - Midterm 2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## About this document
+
+
+This document contains the calculations done for Stats Midterm - 2
+
+Question 1
+```{r}
+z = (8.1 - 8)/(.2/sqrt(16))
+z
+p= 1 - pnorm(z)
+p
+```
+Question 2
+```{r}
+1 - pbinom(40,80,.5) 
+(1 - dbinom(40,80,.5))/2
+```
+Question 3
+Choose snoqualmie14.txt from the data directory once the dialog box opens. Thereafter plot the graphs to check for Normality
+```{r}
+rainfall = scan(file.choose())
+par(mfrow=c(2,2))
+boxplot(rainfall)
+qqnorm(rainfall)
+plot(density(rainfall))
+m = mean(rainfall)
+mu0  = (37.7/365)
+mu0
+s = var(rainfall)
+tval = ( m - mu0 )/(s/sqrt(365))
+m
+s
+tval
+t.test(rainfall,mu=mu0,conf.int = 0.975)
+```
+Ques 4
+```{r}
+total = 4.247 * 1000000
+total
+females = 2.074 * 1000000
+females
+percFem = (2074000/total)*100
+percFem
+pbinom(females,total,percFem)
+phat = .488
+phat-1.96*sqrt((phat*(1-phat))/20740000)
+phat+1.96*sqrt((phat*(1-phat))/20740000)
+qnorm(.975)
+phat = .894
+phat+1.96*sqrt((phat*(1-phat))/123)
+phat-1.96*sqrt((phat*(1-phat))/123)
+phat = .925
+phat-1.96*sqrt((phat*(1-phat))/214)
+phat+1.96*sqrt((phat*(1-phat))/214)
+mn = 4247000 * .483
+mn
+sdn = sqrt(4247000 * .5 *.5)
+sdn
+pnorm(q = 51, mean = mn, sd = sdn) - pnorm(q = 49, mean = mn, sd = sdn)
+z= ((.488-2123500)/1030.413)
+z
+2 * pnorm(z)
+```
+### Q6
+```{r}
+par(mfrow=c(2,2))
+Raddish <- c('A','B','C','D','E','F','G','H','I','J','K')
+Old <- c(0.89,0.49,0.91,0.80,0.56,0.79,0.47,0.50,1.08,1.65,1.94)
+New <- c(2.13,1.16,2.60,1.58,1.53,1.70,2.67,2.64,2.19,2.54,4.46)
+ON <- Old - New
+ON
+qqnorm(Old, main="old")
+qqnorm(New, main="new")
+qqnorm(log(Old), main="log old")
+qqnorm(log(New), main="log new")
+plot(density(ON),col="red", main="Density plot of differences")
+lines(density(New),col="blue")
+lines(density(Old),col="green")
+qqnorm(ON)
+rat <- Old/New
+rat
+qqnorm(rat, main= "Ratio of Old/New")
+plot(density(rat),col="red", main="Density plot of Ratios")
+qnorm(.95)
+mean(rat) - 1.64*sd(rat)/sqrt(11)
+mean(rat) + 1.64*sd(rat)/sqrt(11)
+```
+### Q 7
+```{r}
+currydist = read.table("../Data/currydist.txt", header=TRUE)
+summary(currydist)
+chome <- currydist$distance[currydist$venue == "Home"]
+caway <- currydist$distance[currydist$venue == "Away"]
+plot(density(chome),col="red", main="PDF")
+lines(density(caway),col="green")
+legend("topright", c("Home","Away"), lty = c(1,1), col = c("Red","Green"))
+mean(chome)
+mean(caway)
+var(chome)
+var(caway)
+t.test(chome,caway)
+```
+
+
+
+
+

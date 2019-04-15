@@ -1,0 +1,74 @@
+---
+title: "K-means-practice"
+output: html_document
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)  # data manipulation
+library(cluster)    # clustering algorithms
+library(factoextra) # clustering algorithms & visualization
+```
+## Distance
+
+```{r}
+vector1 <- c(5,2,1,4)
+vector2 <- c(5,5,4,2)
+matrix12 <- matrix(c(vector1,vector2), byrow=T,nrow=2)
+dist(matrix12, method="manhattan")
+dist(matrix12, method="euclidean")
+```
+
+## Data Preparation
+Adapted from UC Business Analytics R Programing Guide
+Dataset - 1973
+
+```{r USAarests}
+df <- USArrests
+```
+
+Remove missing values
+```{r}
+df <- na.omit(df)
+```
+Scaling
+```{r}
+df <- scale(df)
+
+```
+
+## K-Means
+```{r}
+k2 <- kmeans(df, centers = 2)  # centers  = K
+str(k2)
+```
+Output 
+- cluster: A vector of integers (from 1:k) indicating the cluster to which each point is allocated.
+- centers: A matrix of cluster centers.
+- totss: The total sum of squares.
+- withinss: Vector of within-cluster sum of squares, one component per cluster.
+- tot.withinss: Total within-cluster sum of squares, i.e. sum(withinss).
+- betweenss: The between-cluster sum of squares, i.e. $totss-tot.withinss$.
+- size: The number of points in each cluster.
+
+### Elbow Method
+```{r}
+# function to compute total within-cluster sum of square 
+wss <- function(k) {
+  kmeans(df, k, nstart = 10 )$tot.withinss
+}
+
+# Compute and plot wss for k = 1 to k = 10
+k.values <- 1:10
+
+# extract wss for 2-15 clusters
+wss_values <- map_dbl(k.values, wss)
+plot(k.values, wss_values,
+       type="b", pch = 19, frame = FALSE, 
+       xlab="Number of clusters K",
+       ylab="Total within-clusters sum of squares")
+```
+### Cluster Visualization
+```{r}
+final <- kmeans(df, 3, nstart = 25)
+fviz_cluster(final, data = df)
+```

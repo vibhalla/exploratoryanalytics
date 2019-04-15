@@ -1,0 +1,4 @@
+"0","Y1 = rnorm(50,mean=50, sd=15)"
+"0","Y2 = rnorm(50,mean=50, sd=15)"
+"0","Y3 = rnorm(50,mean=60, sd=15)"
+"0","boxplot(Y1,Y2,Y3)"

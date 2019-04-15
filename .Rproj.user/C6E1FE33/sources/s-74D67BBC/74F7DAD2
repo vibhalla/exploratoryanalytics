@@ -1,0 +1,24 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1554788551008.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3937094060",
+    "id" : "74F7DAD2",
+    "lastKnownWriteTime" : 1554903652,
+    "last_content_update" : 1554903652759,
+    "path" : "D:/MS_DS/github/exploratryanalytics/R/Code/Stats_ANOVA.Rmd",
+    "project_path" : "R/Code/Stats_ANOVA.Rmd",
+    "properties" : {
+        "cursorPosition" : "59,49",
+        "last_setup_crc32" : "74D67BBCbb338d19",
+        "scrollLine" : "40",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

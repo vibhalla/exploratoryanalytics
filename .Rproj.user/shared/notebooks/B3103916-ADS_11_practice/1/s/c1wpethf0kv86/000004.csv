@@ -1,0 +1,2 @@
+"0","car_linr_model=lm(dist ~ speed, data = cars)"
+"0","qqnorm(resid(car_linr_model))"

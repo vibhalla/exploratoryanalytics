@@ -1,0 +1,75 @@
+---
+title: "Assignment_11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# First we read the data into 3 variables
+```{r}
+hb = read.table("../data/hb.txt",header=TRUE)
+summary(hb)
+total = hb$hbval
+ss = total[hb$hbtyp=="ss"]
+st = total[hb$hbtyp=="st"]
+sc = total[hb$hbtyp=="sc"]
+```
+# Now we generate boxplots and check for homosecdacity and normality
+```{r}
+boxplot(ss,st,sc,range = 0,
+        main = " HB Measure",
+        names = c("ss","st","sc"),
+        col = c("orange","red","brown"),
+        xlab = "Different HB measurements")
+
+sd(ss)
+sd(st)
+sd(sc)
+
+par(mfrow=c(1,3))
+
+qqnorm(ss, main="ss qq plot")
+qqnorm(st, main="st qq plot")
+qqnorm(sc, main="sc qq plot")
+```
+
+# prepare the data for ANOVA table
+```{r}
+#means
+ss.mean = mean(ss)
+st.mean = mean(st)
+sc.mean = mean(sc)
+ttl.mean = mean(total)
+# Total sum of squares
+TSOS = sum((total - ttl.mean)^2)
+N = length(total)
+ns = length(ss)
+nt = length(st)
+nc = length(sc)
+DoF = N - 1
+
+# Between SoS and MS
+SoSB = ns*(ss.mean-ttl.mean)^2 +
+    nt*(st.mean-ttl.mean)^2 +
+    nc*(sc.mean-ttl.mean)^2
+B.df = 2 
+B.meansquare = SoSB/2
+
+# Within SoS and MS
+SoSW = sum( (ss-ss.mean)^2 ) +
+    sum( (st-st.mean)^2 ) +
+    sum( (sc-sc.mean)^2 )
+
+w.df = N - 3
+w.meansquare = SoSW/w.df
+
+# F-test
+F = B.meansquare/w.meansquare
+# P-value
+1 - pf(F, df1=B.df, df2=w.df)
+
+# Now the shortcut using ANOVA command
+anova(lm(total ~ hb$hbtyp))
+
+```

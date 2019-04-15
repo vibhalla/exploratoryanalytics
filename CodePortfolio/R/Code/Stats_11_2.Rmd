@@ -1,0 +1,83 @@
+---
+title: "Assignment_11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# First we read the data into 3 variables
+```{r}
+diab = read.table("../data/diabetic.txt",header=TRUE)
+summary(diab)
+total = sqrt(diab$ALBU)
+nrm = total[diab$MICE=="NRML"]
+alx = total[diab$MICE=="ALXN"]
+ins = total[diab$MICE=="INSL"]
+```
+# Now we generate boxplots and check for homosecdacity and normality
+```{r}
+boxplot(nrm,alx,ins,range = 0,
+        main = " Albumin Measure",
+        names = c("nrm","alx","ins"),
+        col = c("orange","green","yellow"),
+        xlab = "Different Albumin measurements")
+
+sd(nrm)
+sd(alx)
+sd(ins)
+
+par(mfrow=c(2,2))
+
+qqnorm(nrm, main="Normal qq plot")
+qqnorm(alx, main="Alloxan qq plot")
+qqnorm(ins, main="Insulin qq plot")
+```
+
+# prepare the data for ANOVA table
+```{r}
+#means
+nrm.mean = mean(nrm)
+alx.mean = mean(alx)
+ins.mean = mean(ins)
+ttl.mean = mean(total)
+# Total sum of squares
+TSOS = sum((total - ttl.mean)^2)
+N = length(total)
+ns = length(nrm)
+na = length(alx)
+ni = length(ins)
+DoF = N - 1
+
+# Between SoS and MS
+SoSB = ns*(nrm.mean-ttl.mean)^2 +
+    na*(alx.mean-ttl.mean)^2 +
+    ni*(ins.mean-ttl.mean)^2
+B.df = 2 
+B.meansquare = SoSB/2
+
+# Within SoS and MS
+SoSW = sum( (nrm-nrm.mean)^2 ) +
+    sum( (alx-alx.mean)^2 ) +
+    sum( (ins-ins.mean)^2 )
+
+w.df = N - 3
+w.meansquare = SoSW/w.df
+
+# F-test
+F = B.meansquare/w.meansquare
+# P-value
+1 - pf(F, df1=B.df, df2=w.df)
+
+# Now the shortcut using ANOVA command
+anova(lm(total ~ diab$MICE))
+
+#Benfronni Test, first we adjust the alpha value and the do a t tests on the pairs.
+??pha = .05
+??adj = ??pha/ 3
+
+t.test(nrm, alx, alternative = "two.sided")
+t.test(nrm, ins, alternative = "two.sided")
+t.test(alx, ins, alternative = "two.sided")
+
+```

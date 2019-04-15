@@ -1,0 +1,114 @@
+---
+title: "Midterm"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Midterm Exam
+
+This document has been created to present the code which we write as part of our midterm examination for Applied Data Science course
+
+## Import neccessary libraries
+
+```{r }
+library(stringr)
+library(htmlwidgets)
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(nycflights13)
+library(ggplot2)
+```
+
+
+## Question 1 - To find the number of columns that have NaN
+
+```{r }
+epaData <- read_csv("../data/US EPA data 2017.csv")
+```
+
+```{r }
+head(epaData)
+tail(epaData)
+sort(colSums(is.na(epaData)), decreasing = T)
+```
+
+## Question 2 - To find the maximum negative correlation between 2 variables
+
+```{r mtcars}
+mtc <- dplyr::select(mtcars, -c(cyl, gear, carb, am, vs))
+head(mtc)
+corrplot::corrplot(cor(mtc),method = "number")
+```
+
+## Question 4 - Mean, Trimmed Mean, Weighted Mean, Median, Weighted Median
+
+```{r mtcars}
+mean(mtcars$mpg)
+mean(mtcars$mpg,trim=.1)
+weighted.mean(mtcars$mpg,mtcars$wt)
+median(mtcars$mpg)
+median(rep(mtcars$mpg, times=mtcars$wt))
+```
+
+## Question 7 - SD, IQR and MAD(Median Absolute Deviation)
+
+```{r mtcars}
+sd(mtcars$mpg)
+IQR(mtcars$mpg)
+mad(mtcars$mpg)
+```
+## Question 8 - Regex match 
+### /(\"\w+\":\"\w*\")/im (\"\w+\":\"\d{4}-\d{2}-\d{2}\")
+
+## Question 12
+```{r who}
+nrow(who)
+ncol(who)
+head(who)
+summary(who)
+```
+## Question 13
+```{r mpg}
+ggplot(data = mpg,mapping=aes(displ,hwy,))+
+  geom_point(color='Black',fill='Red',shape=24, size=3)
+```
+
+## Question 16
+```{r}
+test <-matrix(1:9, ncol=3)
+print(test[2, c(1,3)])
+```
+## Question 17
+```{r faithful}
+quantile(faithful$eruptions, probs = .25)
+```
+
+## Question 18
+```{r iris}
+iris%>%
+  filter(Petal.Length >4.5)%>%
+  group_by(Species)%>%
+  summarise(mean(Sepal.Length),sd(Sepal.Width),max(Petal.Length))
+```
+
+## Question 19
+```{r diamonds}
+diamonds%>%
+  group_by(color)%>%
+  filter(color == 'D')%>%
+  summarise(count = n())
+```
+
+## Question 20
+### using nycflights13 
+```{r flights}
+flights%>%
+  group_by(month)%>%
+  filter(month == 1 | month == 6)%>%
+  summarise(sum = n())
+```
+

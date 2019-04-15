@@ -1,0 +1,2 @@
+"0","final <- kmeans(df, 3, nstart = 25)"
+"0","fviz_cluster(final, data = df)"

@@ -1,0 +1,22 @@
+---
+title: "Diagnostics"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This excercise is to learn the various plots that are avaialable for the Linear Regression. To understand what is a good model fit for our data set.
+
+```{r women}
+summary(women)
+```
+## Plotting the Linear Regression
+```{r women}
+par(mfrow=c(1,1))
+fit = lm(weight ~ height, women) # Running a regression analysis
+plot(fit)
+```

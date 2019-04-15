@@ -1,0 +1,5 @@
+"0","par(mfrow=c(1,2))"
+"0","X1 = rnorm(50,mean=50, sd=15)"
+"0","X2 = rnorm(50,mean=50, sd=15)"
+"0","X3 = rnorm(50,mean=50, sd=15)"
+"0","boxplot(X1,X2,X3)"
