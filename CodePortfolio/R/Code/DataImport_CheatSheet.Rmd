@@ -35,3 +35,12 @@ read.table("../data/hb.txt",header=TRUE) # Read a file where data elements are s
 read_lines("../data/scraping.txt",skip = 0,skip_empty_rows = FALSE, n_max =10) # Read specific number of lines
 read.delim("../data/dollar_deliminited.txt", sep="$") # To read a delimited file
 ```
+
+### Options while importing a file. 
+```{r}
+read_csv("../Data/sample_file.txt") #Read a file
+read_csv("../Data/sample_file.txt", skip = 1) #Read a file but skip 1 row. 1st row read is considered as header
+read_csv("../Data/sample_file.txt", skip = 1, col_names = F) #Read a file but skip 1 row.X1,X2 are assigned header
+read_csv("../Data/sample_file.txt", skip = 1, col_names = c("col1","col2")) #Read a file but skip 1 row.Specify Headers.
+read_csv("../Data/sample_file.txt", col_names = T) # Read a file. Specify that 1st row is header row
+```
