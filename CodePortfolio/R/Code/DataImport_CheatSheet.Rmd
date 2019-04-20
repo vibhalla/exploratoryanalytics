@@ -1,0 +1,37 @@
+---
+title: "DataImport_CheatSheet"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## This document contains code samples that can be used for importing data into R
+
+### Importing the required libraries
+```{r echo=FALSE}
+#Use the function library to import the required libraries
+suppressMessages(library(stringr)) # suppressMessages suppreses the messages displayed whille loading the package
+suppressMessages(library(htmlwidgets))
+suppressMessages(library(readr))
+suppressMessages(library(dplyr))
+suppressMessages(library(tidyverse))
+search() # shows the packages loaded
+```
+
+### Present working directory.
+```{r}
+getwd() # returns the current working directory
+setwd("C:/Users/vishal_bhalla") # sets the directory provided to current working directory
+#scan(file.choose()) # Opens a windows to allow user to choose a file
+```
+
+### Importing data from a file. 
+```{r}
+# The files do not exist in the repository so the code is for reference only
+read_csv("../data/US EPA data 2017.csv") # Read from a CSV file
+read.table("../data/hb.txt",header=TRUE) # Read a file where data elements are separated by one of more spaces or tabs
+read_lines("../data/scraping.txt",skip = 0,skip_empty_rows = FALSE, n_max =10) # Read specific number of lines
+read.delim("../data/dollar_deliminited.txt", sep="$") # To read a delimited file
+```
