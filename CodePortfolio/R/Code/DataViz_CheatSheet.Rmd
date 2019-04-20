@@ -1,0 +1,10 @@
+---
+title: "Data Visualization"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### This document contains helpful tips for Data Visualization using ggplot2 R library.
