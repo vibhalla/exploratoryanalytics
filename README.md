@@ -1,8 +1,8 @@
 ## Data Science
 
-This repository has been created to store the various assignments and practice programs written as part of the assignments done during the masters degree. The sample code so far includes code in [R and Python](CodePortfolio/)
+This repository has been created to store the various assignments and practice programs written as part of the assignments done during the masters degree. The sample code so far includes code in R and Python.
 
-The [CodePortfolio for R](CodePortfolio/R/) also includes some helpful documentation(links below) to make working with R easier.
+The CodePortfolio for R also includes some helpful documentation(links below) to make working with R easier.
 
 [Data Import Cheat Sheet](https://github.com/vibhalla/exploratoryanalytics/tree/master/CodePortfolio/R/Code/DataImport_CheatSheet.Rmd)
 
@@ -13,10 +13,11 @@ The [CodePortfolio for R](CodePortfolio/R/) also includes some helpful documenta
 
 
 #### Subjects covered as part of the curriculum until April 2019:
-Principles of Machine Learning
 
-Tableau
+ * Principles of Machine Learning
 
-Statistics
+ * Tableau
 
-Applied Data Science
+ * Statistics
+
+ * Applied Data Science
