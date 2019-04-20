@@ -1,0 +1,49 @@
+---
+title: "Stats"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This document contains the R code required for Statistics Assignment 12. Here we are working with Bivariate Normal data(BVN)
+
+```{r}
+# Let the heights if Sister be X and Height of Brother be Y. We need to calculate mean of X, mean of Y, variance of X, 
+#  variance of Y, correlation of (X,Y). Using Trosset's R function binom.estimate to calculate the same
+source("binorm.R", local=T)
+siblings.data = read.table("../Data/bro_sis.txt", sep = "," ,header=TRUE,colClasses = c("integer", "integer"))
+binorm.estimate(siblings.data)
+# We need brother at least 5'10" i.e. 70 inches i.e. P(Y>= 70) ~ 1 - pnorm(70,mean of Y, SD of Y) which we get frm binorm.estimate output above
+1 - pnorm(70,69,sqrt(7.4))
+# Pridicting the height of brother if sister is 61"
+#E(Y|X) = ybar + r*(SD_y)/(SD_x )(X - xbar)
+69 + .558*(sqrt(7.4)/sqrt(6.6))*(61 - 64)
+
+# Find the prediction error varY*(1-r^2)
+7.4*(1-(.558)^2)
+#5.096
+
+#	Coefficient of determination = r^2
+.558^2
+
+# Linear Model and Summary
+sis2bromodel = lm(Y ~ X)
+summary(sis2bromodel)
+
+# Find the estimated slope
+.558*(sqrt(7.4)/sqrt(6.6))
+
+# Find the standard error of the estimated slope
+(sqrt(7.4)/sqrt(6.6)) * sqrt((1 - (.558^2))/(11 -2))
+
+# Calculate the 90% confidence interval
+.591 + qt(.95,9)*.293
+.591 - qt(.95,9)*.293
+
+#Calculate 95%
+qt(.975,9)
+```
