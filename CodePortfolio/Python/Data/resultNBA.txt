@@ -1,0 +1,6 @@
+1:['minutes', 'remaining', 'point', 'Cavaliers', 'Warriors', 'combined', 'score', 'exact', 'amount', 'points', 'series', 'makes', 'interesting', 'first', 'games', 'decided', 'points']
+2:['entire', 'world', 'privy', 'close', 'marbles', 'performance', 'squads', 'fighting', 'tooth', 'hoist', 'Larry', 'O’Brien', 'trophy']
+3:['point', 'Angeles', "Lakers'", 'Boston', 'Celtics', 'Lakers’', 'Detroit', 'two-best', 'Finals', 'series', 'modern', 'history', 'argument', 'could']
+4:['Though', 'specific', 'series', 'it’s', 'another', 'Finals', 'better', 'sport', 'Potential', 'dynasty', 'going', 'against', 'legacy', 'players', 'Association', 'history']
+5:['Cleveland', 'we’d', 'remiss', 'mention', 'Warriors', 'fought', 'first', 'season', 'expectations', 'record', 'Chasing', 'history', 'Warriors', 'ended', 'falling', 'greatness', 'There’s', 'shame']
+I love NBA
