@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## BVN
 
 This document contains the R code required for Statistics Assignment 12. Here we are working with Bivariate Normal data(BVN)
 
