@@ -10,6 +10,7 @@ The CodePortfolio for R also includes some helpful documentation(links below) to
 
 [Data Viz Cheat Sheet](https://github.com/vibhalla/exploratoryanalytics/tree/master/CodePortfolio/R/Code/DataViz_CheatSheet.Rmd)
 
+[Statistical Functions in R](https://github.com/vibhalla/exploratoryanalytics/tree/master/CodePortfolio/R/Code/Stats_ReferenceSheet.Rmd)
 
 #### Subjects covered as part of the curriculum until April 2019:
 
