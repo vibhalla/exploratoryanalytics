@@ -7,4 +7,24 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### This document contains helpful tips for Data Visualization using ggplot2 R library.
+#### This document contains helpful tips for Data Visualization in R
+
+Some of the commands below have been gathered from http://r-statistics.co/ggplot2-cheatsheet.html
+
+```{r diamonds}
+library(ggplot2)
+#Simple Plot
+p <- ggplot(diamonds, aes(x=carat, y=price)) # This creates a basic plot but nothing will be visible. Need to add layers to make the plot visible
+p + geom_point() # displays a basic scatter plot.
+p + geom_point(size = 1, shape = 1, color = 'Tomato') # We can change the look and feel of the layer
+p + geom_point(aes(size=carat, color=color)) # additional information can be displayed using aes
+p + geom_point(aes(size=carat, color=color)) + stat_smooth() # Adds a statistical line
+p + geom_point(aes(size=carat, color=color)) + stat_smooth() + theme(legend.position="top") # change the leged position
+
+p1 <- p + geom_point(size = 1, shape = 1, color = 'Firebrick')
+
+p1 + ggtitle("Diamonds") + theme(plot.title = element_text(size=20, face="bold", vjust=2)) # Give a title and set the title properties
+
+p1 + labs(title = "Diamonds" , y=("Price") , x=("Size in Carats")) # Change the X and Y labels
+
+```
