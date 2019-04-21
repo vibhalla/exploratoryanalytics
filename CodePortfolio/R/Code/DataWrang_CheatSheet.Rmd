@@ -8,3 +8,37 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## This document provides helpful tips for data wrangling using R
+
+#### Basic data explorations commands
+
+```{r}
+x <- c(20,10,32,17,73,15, 22, 35, 41, 58, 36, 7, 8, 49, 20, 11, 1, 2, 123, 135, 34, 5)
+summary(x) # gives the summary of the data including mean, median, min and max values
+head(x) # returns the first few lines of the data
+tail(x) # returns the last few lines of the data
+nrow(X) # return the number of rows
+ncol(x) # return the number of column
+```
+
+#### Generic data generation commands
+```{r}
+library(dplyr)
+df1 = read_csv("../Data/sample_file2.txt", col_names = TRUE)
+c(1:10)# Concatenate function to create a vector with numbers from 1 to 10.
+seq(0, 100, 10) # Produces a sequence from 0 to 100 in steps of 10.
+rep(2,10)# replicates 2, 10 times. 
+rep(c(1,2,3),2) #outputs 1 2 3 1 2 3. 
+rep(c("a","b","c"), each=2) # gives a a b b c c.
+selCols = df1[,c("ID","YIELD")] #sub-sets the variables ID and YIELD
+df1[1:7, 1:3] #returns the first 7 rows and the first 3 columns of data frame df1.
+df2=df1[20:25,] #returns a subset of rows 20 to 25.
+cleanData=df1[-c(2,7,15),] #removes rows 2, 7 and 15.
+selRows=df1[df1$VAR1==3,] #sub-sets with rows where VAR1 = 3.
+df2=transform(df1, VAR2=VAR1*2) #. Creates variable VAR2 that is twice the value of VAR1
+```
+
+#### Tidy - The package used for data wrangling. 
+
+```{r}
+
+```
