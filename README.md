@@ -11,7 +11,6 @@ The CodePortfolio for R also includes some helpful documentation(links below) to
 [Data Viz Cheat Sheet](https://github.com/vibhalla/exploratoryanalytics/tree/master/CodePortfolio/R/Code/DataViz_CheatSheet.Rmd)
 
 
-
 #### Subjects covered as part of the curriculum until April 2019:
 
  * Principles of Machine Learning
@@ -21,3 +20,17 @@ The CodePortfolio for R also includes some helpful documentation(links below) to
  * Statistics
 
  * Applied Data Science
+
+
+
+#### Folder Structure
+
+ * **CodePortfolio** - Contains all the practice code from the assignments
+    * **R** - Contains all the code written in R
+      * Code - Code Files
+      * Data - Data Files
+    * **Python** - Contains the code written in Python
+      * Code - Code Files
+      * Data - Data Files
+      
+ * **FinalReport**
