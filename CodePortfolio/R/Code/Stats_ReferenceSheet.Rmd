@@ -1,0 +1,17 @@
+---
+title: "Statistical Functions"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### This document lists some of the statistical function available in R
+
+
+##### **The usual suspects**
+ * mean()
+ * median()
+ * mode()
+ 
