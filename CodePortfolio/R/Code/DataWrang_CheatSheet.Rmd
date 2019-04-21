@@ -68,4 +68,5 @@ sample_n(iris, 5, replace = FALSE) # select 5 rows at random
 slice(iris, 3:8) # extract 3rd to 8th rows
 group_by(iris,Petal.Length) # returns a table grouped by the col specified.
 iris   %>%   group_by(Species)   %>%   rename(Type = Species) %>% glimpse() #piping function %>% Passes the values from the left(could be a df, variable or another function) to the function on the right for further processing
+fill(iris) #fill as named fills the missing value with the most recent non missing value
 ```

@@ -44,3 +44,5 @@ read_csv("../Data/sample_file.txt", skip = 1, col_names = F) #Read a file but sk
 read_csv("../Data/sample_file.txt", skip = 1, col_names = c("col1","col2")) #Read a file but skip 1 row.Specify Headers.
 read_csv("../Data/sample_file.txt", col_names = T) # Read a file. Specify that 1st row is header row
 ```
+
+#### This is a live document. Will be adding the commands to import from a database.
