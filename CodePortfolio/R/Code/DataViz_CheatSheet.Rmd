@@ -11,14 +11,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Some of the commands below have been gathered from http://r-statistics.co/ggplot2-cheatsheet.html
 
+
 ```{r diamonds}
 library(ggplot2)
-#Simple Plot
+# Simple Plots
 p <- ggplot(diamonds, aes(x=carat, y=price)) # This creates a basic plot but nothing will be visible. Need to add layers to make the plot visible
 p + geom_point() # displays a basic scatter plot.
 p + geom_point(size = 1, shape = 1, color = 'Tomato') # We can change the look and feel of the layer
 p + geom_point(aes(size=carat, color=color)) # additional information can be displayed using aes
-p + geom_point(aes(size=carat, color=color)) + stat_smooth() # Adds a statistical line
+p + geom_point(aes(size=carat, color=color)) + stat_smooth() # Adds a statistical line using fitting with lm
 p + geom_point(aes(size=carat, color=color)) + stat_smooth() + theme(legend.position="top") # change the leged position
 
 p1 <- p + geom_point(size = 1, shape = 1, color = 'Firebrick')
@@ -27,4 +28,16 @@ p1 + ggtitle("Diamonds") + theme(plot.title = element_text(size=20, face="bold",
 
 p1 + labs(title = "Diamonds" , y=("Price") , x=("Size in Carats")) # Change the X and Y labels
 
+#Adding lines to the plot
+p + geom_abline(aes(intercept=0,slope = 1))
+p + geom_hline(yintercept=2, color="Blue", size=1.5)
+p + geom_vline(xintercept=2.5, color="Yellow", linetype="dashed", size = 2)
+```
+
+#### Different types of plots
+
+```{r mtcars}
+mt <- ggplot(mtcars, aes(x=mpg, y=hp))
+mt + geom_point(size = 2, color = 'forestgreen') #scatter plot
+mt + geom_line(size = 1, color = 'hotpink', linetype="dashed") # line plot
 ```
