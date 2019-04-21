@@ -7,11 +7,56 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#### This document lists some of the statistical function available in R
+
+##### **This document lists some of the statistical function available in R**
 
 
 ##### **The usual suspects**
  * mean()
  * median()
  * mode()
+ * var()
+ * sd()
+ * summary()
+ * sum()
+ * length()
+ * count()
+ 
+
+#### **Binomial normal distribution**
+
+ * dbinom
+ * pbinom
+ * qbinom
+ * rbinom
+ 
+#### **Normal distribution**
+
+ * pnorm
+ * qnorm
+ * rnorm
+ * dnorm
+ 
+#### **T distributions**
+ * qt()
+ * pt()
+ * rt()
+ * dt()
+ 
+#### **Chi Square distribution**
+
+ * pchisq()
+ * qchisq()
+ 
+#### **Tests**
+
+ * t.test()
+ * chisq.test()
+ * qqnorm()
+ * qqline()
+ * anova()
+ * p.test()
+ * binom.test()
+ 
+
  
