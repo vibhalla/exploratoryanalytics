@@ -29,6 +29,7 @@ sqrt(7.4*(1-(.558)^2))
 
 # Find the probability
 1 - pnorm(70,67.227,2.257) 
+#.109
 
 #	Coefficient of determination = r^2
 .558^2
@@ -50,3 +51,4 @@ summary(sis2bromodel)
 #Calculate 95%
 qt(.975,9)
 ```
+
