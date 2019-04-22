@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ##### **This document lists some of the statistical function available in R**
 
 
-##### **The usual suspects**
+##### **Basics - The usual suspects**
  * mean()
  * median()
  * mode()
@@ -21,6 +21,10 @@ knitr::opts_chunk$set(echo = TRUE)
  * sum()
  * length()
  * count()
+ * sort()
+ * rank()
+ * quantile()
+ * cor(x,y) # Gives the correlation between x and y
  
 
 #### **Binomial normal distribution**
@@ -58,5 +62,9 @@ knitr::opts_chunk$set(echo = TRUE)
  * p.test()
  * binom.test()
  
+#### **Regression and Clustering**
+ * lm() # Linear Model
+ * coefficients() # Calculates slope and intercept for a linear model
+ * kmeans() # K means clustering 
 
  

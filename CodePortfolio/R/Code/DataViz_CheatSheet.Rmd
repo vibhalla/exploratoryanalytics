@@ -41,4 +41,5 @@ mt <- ggplot(mtcars, aes(x=mpg, y=hp))
 mt + geom_point(size = 2, color = 'forestgreen') #scatter plot
 mt + geom_line(size = 1, color = 'hotpink', linetype="dashed") # line plot
 mt + geom_bar(stat = "identity") # Bar Chart
+
 ```
