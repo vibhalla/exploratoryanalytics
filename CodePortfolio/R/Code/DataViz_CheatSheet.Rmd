@@ -11,9 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Some of the commands below have been gathered from http://r-statistics.co/ggplot2-cheatsheet.html
 
+```{r}
+library(ggplot2)
+```
 
 ```{r diamonds}
-library(ggplot2)
 # Simple Plots
 p <- ggplot(diamonds, aes(x=carat, y=price)) # This creates a basic plot but nothing will be visible. Need to add layers to make the plot visible
 p + geom_point() # displays a basic scatter plot.
@@ -34,12 +36,22 @@ p + geom_hline(yintercept=2, color="Blue", size=1.5)
 p + geom_vline(xintercept=2.5, color="Yellow", linetype="dashed", size = 2)
 ```
 
-#### Different types of plots
+#### Single Variable Plots
 
 ```{r mtcars}
-mt <- ggplot(mtcars, aes(x=mpg, y=hp))
+mt <- ggplot(mtcars, aes(x=mpg))
+mt + geom_histogram() #Histogram
+mt + geom_density() #density plot
+mt + geom_smooth(aes(y=hp)) # plots the regression line
+```
+
+#### 2 variable plots
+
+```{r mtcars}
+mt <- ggplot(mtcars, aes(x=mpg,y=hp))
 mt + geom_point(size = 2, color = 'forestgreen') #scatter plot
 mt + geom_line(size = 1, color = 'hotpink', linetype="dashed") # line plot
 mt + geom_bar(stat = "identity") # Bar Chart
-
+mt + geom_boxplot() #Box plot
+mt + geom_area() # Area Plot
 ```
