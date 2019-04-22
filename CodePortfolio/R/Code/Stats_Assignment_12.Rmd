@@ -23,9 +23,12 @@ binorm.estimate(siblings.data)
 #E(Y|X) = ybar + r*(SD_y)/(SD_x )(X - xbar)
 69 + .558*(sqrt(7.4)/sqrt(6.6))*(61 - 64)
 
-# Find the prediction error varY*(1-r^2)
-7.4*(1-(.558)^2)
-#5.096
+# Find the prediction error sqrt(varY*(1-r^2))
+sqrt(7.4*(1-(.558)^2))
+#2.257
+
+# Find the probability
+1 - pnorm(70,67.227,2.257) 
 
 #	Coefficient of determination = r^2
 .558^2
