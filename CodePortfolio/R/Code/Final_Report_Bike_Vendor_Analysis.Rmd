@@ -1,0 +1,86 @@
+---
+title: "Final Report - An analysis of Bike Vendors data"
+author: "Vishal Bhalla"
+date: "April 22, 2019"
+
+output: 
+  html_document:
+    fig_width: 7
+    fig_height: 5
+    fig_caption: true
+    toc: true
+    
+---
+&nbsp;
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r message=FALSE, warning=FALSE}
+# First of all import the libraries that will be required for the complete excercise
+library(dplyr) # provides piping operator
+library(janitor) # provides functions to clean the data and headers
+library(tidyverse) #data manipulation functions
+library(cluster) #clustering algorithms
+```
+&nbsp;
+
+####  1. Introduction
+This document contains the analysis done on the **Bike Vendors** data set. The report is being prepared as part of the final submission for the *Applied Data Science* class.
+
+First we load the data into a Data Frame and then analyse its features. We then formulate our questions that we need to get the answers for. Thereafter we use the techniques we learnt to get those answers from the data provided.
+
+```{r message=FALSE, warning=FALSE}
+bike_raw <- read_csv("../Data/bikeVendors.csv") # Read the data
+```
+&nbsp;
+
+####  2. Questions that need to be answered
+ * Which bike sells more? Mountain Bike or Road Bike?
+ * Which store sells most bikes?
+ * What is the average cost of a bike?
+
+
+&nbsp;
+
+####  3. Understand the data
+
+```{r, eval=TRUE, include=FALSE}
+head(bike_raw)
+glimpse(bike_raw) # Display the number of observations and variables in the data frame. Display few records of the data set.
+bike <- bike_raw %>%
+        clean_names() # Removing extra column spaces
+sapply(bike, function(x) sum(is.na(x)))
+bike %>%
+  select(-price) %>%
+    summarize_if(is.numeric, sum)
+```
+&nbsp;
+
+We see that there are **35** variables and **97** obeservations for each variable. There are no missing values.
+
+There are 4 character variables namely **model, category1, category2, and price**. The remaining 31 variables are of type double, of which one is **price** and rest of the variables appear to be the names of the vendors. 
+
+The variable names are displayed below.
+```{r}
+as.data.frame(colnames(bike))
+```
+
+
+&nbsp;
+
+The **model** variable contains the name of the bike model, the **category1** variable contain the category of the bike, i.e. if it is a Mountain Bike or a Road bike and **category2** further sub categorize it by usage like Sports or Elite Road bike for example.  The **Frame** variable contains the details on the type of frame 'Carbon' or 'Aluminium' and **Price** contains the price of the frame.
+
+
+The data under each vendor name has a sum total of 1, so it appears to be the percentage of each type of frame sold by the vendor totalling to 100%.
+
+&nbsp;
+
+Looking at the data, I think more appropriate questions to ask would be:
+
+ * What is the percentage market share for Mountain Bike and Road Bike?
+ * What is the average cost of a bike? Which store sells most expensive bikes?
+
+```{r}
+
+```
