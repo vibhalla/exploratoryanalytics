@@ -16,12 +16,13 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, echo=FALSE}
 # First of all import the libraries that will be required for the complete excercise
 library(dplyr) # provides piping operator
 library(janitor) # provides functions to clean the data and headers
 library(tidyverse) #data manipulation functions
 library(cluster) #clustering algorithms
+library(reshape2) #for melt function
 ```
 &nbsp;
 
@@ -54,6 +55,7 @@ sapply(bike, function(x) sum(is.na(x)))
 bike %>%
   select(-price) %>%
     summarize_if(is.numeric, sum)
+bike1 = bike # make a copy of the df
 ```
 &nbsp;
 
@@ -62,7 +64,7 @@ We see that there are **35** variables and **97** obeservations for each variabl
 There are 4 character variables namely **model, category1, category2, and price**. The remaining 31 variables are of type double, of which one is **price** and rest of the variables appear to be the names of the vendors. 
 
 The variable names are displayed below.
-```{r}
+```{r echo=FALSE}
 as.data.frame(colnames(bike))
 ```
 
@@ -78,9 +80,44 @@ The data under each vendor name has a sum total of 1, so it appears to be the pe
 
 Looking at the data, I think more appropriate questions to ask would be:
 
+ * What is the percentage market share for bikes based on frame type?
  * What is the percentage market share for Mountain Bike and Road Bike?
  * What is the average cost of a bike? Which store sells most expensive bikes?
 
-```{r}
+&nbsp;
 
+```{r fig.height=5, fig.width=9, echo=FALSE}
+bike1 %>%
+  select(-model, - category1, -category2,-price) %>%
+  group_by(frame) %>%
+  summarise_if(is.numeric, sum) %>%
+  melt(id.var='frame') %>%
+  ggplot(aes(x=variable, y=value, fill=frame)) +
+    geom_col() +
+    labs(title = "Frame Types sales per Vendor" , y=("% of Sales") , x=("Vendors")) +
+    scale_fill_brewer(palette = "Set2") + 
+    theme(plot.title=element_text(size=12, hjust=.5), axis.text.x = element_text(face="italic", size=10, angle=90)) +
+    geom_hline(yintercept=.5, color="yellow", size=1.5)
 ```
+
+&nbsp;
+
+From the above figure we can see that the sales of both the carbon as well as aluminium frame is almost equal across the vendors. The yellow line marks 50% of the sales.
+
+&nbsp;
+
+```{r fig.height=5, fig.width=9, echo=FALSE}
+bike$totalbyrow <- rowSums(bike[,6:35], na.rm=TRUE)
+totalbycat <- bike %>%
+  select(category1, category2,totalbyrow) %>%
+  group_by(category1, category2) %>%
+  summarise_if(is.numeric, sum)
+  ggplot(totalbycat, aes(x=category2, y=(totalbyrow*100/35), color=category1)) + geom_point(shape=19,size=3)  +
+    labs(title = "Sales share per sub category" , y=("Percentage of Total Sales") , x=("Sub Categories")) +
+    scale_fill_brewer(palette = "Dark2") + 
+    theme(plot.title=element_text(size=12, hjust=.5), axis.text.x = element_text(face="italic", size=10, angle=90))
+```
+
+&nbsp;
+
+From the chart above we see that the highest selling bike is the Eite Road bike and it contributes to around 25% of total bike sales.
