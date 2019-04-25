@@ -5,8 +5,6 @@ date: "April 22, 2019"
 
 output: 
   html_document:
-    fig_width: 7
-    fig_height: 5
     fig_caption: true
     toc: true
     
@@ -39,7 +37,7 @@ bike_raw <- read_csv("../Data/bikeVendors.csv") # Read the data
 ####  2. Questions that need to be answered
  * Which bike sells more? Mountain Bike or Road Bike?
  * Which store sells most bikes?
- * What is the average cost of a bike?
+ * What is the cost of a bike?
 
 
 &nbsp;
@@ -82,10 +80,11 @@ Looking at the data, I think more appropriate questions to ask would be:
 
  * What is the percentage market share for bikes based on frame type?
  * What is the percentage market share for Mountain Bike and Road Bike?
- * What is the average cost of a bike? Which store sells most expensive bikes?
+ * What is the price range where most of the bikes sell?
 
 &nbsp;
 
+####  4. Analysis - Sales
 ```{r fig.height=5, fig.width=9, echo=FALSE}
 bike1 %>%
   select(-model, - category1, -category2,-price) %>%
@@ -106,6 +105,7 @@ From the above figure we can see that the sales of both the carbon as well as al
 
 &nbsp;
 
+
 ```{r fig.height=5, fig.width=9, echo=FALSE}
 bike$totalbyrow <- rowSums(bike[,6:35], na.rm=TRUE)
 totalbycat <- bike %>%
@@ -113,11 +113,70 @@ totalbycat <- bike %>%
   group_by(category1, category2) %>%
   summarise_if(is.numeric, sum)
   ggplot(totalbycat, aes(x=category2, y=(totalbyrow*100/35), color=category1)) + geom_point(shape=19,size=3)  +
-    labs(title = "Sales share per sub category" , y=("Percentage of Total Sales") , x=("Sub Categories")) +
+    labs(title = "Sales share per sub category" , y=("Percentage of Total Sales") , x=("Sub Categories"), color="Types of bike") +
     scale_fill_brewer(palette = "Dark2") + 
     theme(plot.title=element_text(size=12, hjust=.5), axis.text.x = element_text(face="italic", size=10, angle=90))
 ```
 
 &nbsp;
 
-From the chart above we see that the highest selling bike is the Eite Road bike and it contributes to around 25% of total bike sales.
+From the chart above we see that the highest selling bike is the Elite Road bike and it contributes to around 25% of total bike sales.
+
+&nbsp;
+
+```{r fig.height=5, fig.width=9, echo=FALSE}
+ggplot(bike, aes(sample = (totalbyrow*100),colour = factor(category1))) + 
+  geom_qq(distribution = qnorm) + 
+  stat_qq_line() + ylab("Sales %") + labs(color='Types of Bikes', title = "Sales distribution across the vendors") + 
+  theme(plot.title=element_text(size=12, hjust=.5))
+```
+
+&nbsp;
+
+The sales of the bikes across the various vendors seems to follow almost a normal distribution with some outliers at both the lower and higher edges of the data.
+
+&nbsp;
+
+####  5. Analysis - Price
+
+```{r fig.height=5, fig.width=9, echo=FALSE}
+ggplot(bike, aes(x = category1, y = price)) +
+  geom_boxplot(fill="firebrick", color="black") + 
+  scale_x_discrete(name = "Bike Categories") +
+  scale_y_continuous(name = "Price") +
+  ggtitle("Price of bike by categories per frame type") + 
+  theme(plot.title=element_text(size=12, hjust=.5)) +
+  facet_grid(. ~ frame)
+```
+
+&nbsp;
+
+The box plots above show that the Carbon frame bikes are expensive when compared to the Aluminum frame bikes. The bikes that fall under the Mountain bike category are expensive than the road bikes. The most expensive bikes are the Mountain Bikes with Carbon frame with the median price aroud $6000.
+
+&nbsp;
+
+```{r fig.height=5, fig.width=9,echo=FALSE}
+ggplot(data=bike, aes(price)) + 
+  geom_histogram(fill="firebrick",binwidth = 1000, col=("black")) +
+  ggtitle("Price Distribution") + 
+  theme(plot.title=element_text(size=12, hjust=.5)) +
+  geom_vline(aes(xintercept=mean(price), color = "Mean"),linetype="dashed", size=1, show.legend = T) +
+  geom_vline(aes(xintercept=median(price), color = "Median"),linetype="dashed", size=1, show.legend =  T) + 
+  scale_color_manual("Bike Price", values = c("Mean" = "royalblue", "Median" = "green")) +
+  scale_x_continuous(breaks = seq(0, max(bike$price), by = 1000))
+```
+
+&nbsp;
+
+The histogram above shows the price distribution for the bikes. We observe that the major number of bikes sold are less than the overall mean price of the bikes. Majority of the bikes range between the price of $500 - $4500.
+
+&nbsp;
+
+```{r fig.height=5, fig.width=9, echo=FALSE}
+bike2 <- bike %>%
+  select(-model, - category1, -frame,-price) %>%
+  group_by(category2) %>%
+  summarise_if(is.numeric, sum)
+head(bike2)
+```
+
