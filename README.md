@@ -12,6 +12,10 @@ The CodePortfolio for R also includes some helpful documentation(links below) to
 
 [Data Analysis - Statistical Functions in R](https://github.com/vibhalla/exploratoryanalytics/tree/master/CodePortfolio/R/Code/Stats_ReferenceSheet.Rmd)
 
+The final project report for **Applied Data Science** program can be found under the FinalReport folder
+
+[Final Project Report - Analysis of Bike Vendors Data Set](https://github.com/vibhalla/exploratoryanalytics/blob/master/FinalReport/Final_Report_Bike_Vendor_Analysis.Rmd)
+
 #### Subjects covered as part of the curriculum until April 2019:
 
  * Principles of Machine Learning
