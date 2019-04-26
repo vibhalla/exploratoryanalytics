@@ -32,7 +32,7 @@ This document contains the analysis done on the **Bike Vendors** data set. The r
 First we load the data into a Data Frame and then analyse its features. We then formulate our questions that we need to get the answers for. Thereafter we use the techniques we learnt to get those answers from the data provided.
 
 ```{r message=FALSE, warning=FALSE}
-bike_raw <- read_csv("../Data/bikeVendors.csv") # Read the data
+bike_raw <- read_csv("../CodePortfolio/R/Data/bikeVendors.csv") # Read the data
 ```
 &nbsp;
 
