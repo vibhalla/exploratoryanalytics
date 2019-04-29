@@ -1,0 +1,221 @@
+---
+title: "Stats_Final_Exam"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+&nbsp;
+
+#### Here we load all the needed libraries and read the files that are needed to solve the problems
+```{r}
+library(dplyr)
+source("binorm.R", local=T)
+citations = scan(file.choose())
+anxiety = read_tsv("../Data/examanxiety.txt")
+```
+#### This document contains the code written as part of solving the probles for the Statistics final exam paper
+
+&nbsp;
+
+##### 1.
+```{r}
+# y = 8 + .327(x - 8) 
+x = 2
+8 - (.327*8) #=5.384
+y = 8 + .327*(x - 8)
+y
+pop <- c (8,8,1,1,0.327)
+wins <- binorm.sample(pop,100)
+est <- binorm.estimate(wins)
+binorm.regress(wins)
+```
+
+&nbsp;
+
+##### 2.
+```{r}
+par(mfrow=c(1,3))
+qqnorm(citations, main = "QQ Norm graph for Citations")
+plot(density(citations), main = "Density plot for Citations data set")
+hist(citations)
+mu = mean(citations)
+s = round(sd(citations),3)
+n = 1000
+q= 1.96
+serr = round((s/sqrt(n)),3)
+lower = round((mu - q*serr),3)
+upper = round((mu + q*serr),3)
+message("Mean:", mu)
+message("Standard dev: ", s)
+message("Standard Error: ", serr)
+message("Confidence Interval: ", lower,",", upper)
+n3 = sum(citations==0)
+n3
+p = n3/1000
+p
+SD1 = sqrt((p*(1 - p))/n)
+SD1
+L1 = round((p - (q * SD1)),3)
+U1 = round((p + (q * SD1)),3)
+message("Confidence Interval: ", L1,",", U1)
+```
+
+&nbsp;
+
+##### 3.
+```{r}
+mu = 98.6
+xbar = 98.5
+s = .73
+n = 130
+tstat = round((xbar - mu)/(s/sqrt(n)),3)
+message("T Statistics: ", tstat)
+pval = 2 * (1 - pt(abs(tstat), df = (n - 1)))
+message("pval : ", pval)
+
+CIL = round((mu - qt(0.975, df = (n - 1)) * s/sqrt(n)),2)
+CIU = round((mu + qt(0.975, df = (n - 1)) * s/sqrt(n)),2)
+message("Confidence Interval: ", CIL,",", CIU)
+```
+
+&nbsp;
+
+##### 4.
+```{r}
+head(anxiety)
+# Separate out the records for Males and Females
+m_anx = subset(anxiety, Gender == 'Male')
+f_anx = subset(anxiety, Gender == 'Female')
+mu1 = mean(m_anx$Anxiety)
+var1 = var(m_anx$Anxiety)
+mu2 = mean(f_anx$Anxiety)
+var2 = var(f_anx$Anxiety)
+n1 = length(m_anx$Anxiety)
+n2 = length(f_anx$Anxiety)
+df = n1 + n2 - 2
+deltahat = mu1 - mu2
+se = sqrt((var1/n1) + (var2/n2))
+tstat = deltahat /se 
+pval = 2*(1-pt(abs(tstat),df = df))
+
+# Pull the anxiety data into x and maths scores into y
+x = anxiety$Anxiety
+y = anxiety$Exam
+r = round(cor(x,y),3) # Correlation of x and y
+mux = round(mean(x),3)
+muy = round(mean(y),3)
+sdx = round(sd(x),3)
+sdy = round(sd(y),3)
+slope = round(r * (sdy/sdx),3)
+intercept = round((muy - slope*mux),3)
+message("Slope: ",slope, " Intercept: ", intercept)
+lmreg <- lm(y~x)
+plot(x,y,main="Linear Regression: Anxiety and Maths Score", xlab = "Anxiety", ylab = "Maths Score",ylim=c(0, 125))
+abline(lmreg, col = "Red", lwd = 2)
+par(mfrow=c(2,2))
+plot(lmreg)
+summary(lmreg)
+par(mfrow=c(1,2))
+qqnorm(x)
+qqnorm(y)
+#bs <- anxiety[,c("Anxiety", "Exam")]
+#binorm.scatter(bs)
+```
+
+
+&nbsp;
+
+##### 5.
+```{r}
+set.seed(2000487442) # use the numerical value of your Student ID
+x = rnorm(500)
+y = 2 * x + rnorm(500)
+n = 500
+mux = round(mean(x),3)
+muy = round(mean(y),3)
+sdx = round(sd(x),3)
+sdy = round(sd(y),3)
+r = round(cor(x,y),3) # Correlation of x and y
+message("Mean X:", mux, "   SD X:", sdx)
+message("Mean y:", muy, "   SD y:", sdy)
+message("Correlation: ", r)
+
+mux = round(mean(x),3)
+muy = round(mean(y),3)
+sdx = round(sd(x),3)
+sdy = round(sd(y),3)
+slope = round(r * (sdy/sdx),3)
+intercept = round((muy - slope*mux),3)
+message("Slope: ",slope, " Intercept: ", intercept)
+
+Xval=1
+Yhat = 2.046*Xval+ .01
+1 - pnorm(3, 2.056, 2.249)
+se = sdy/sdx * sqrt((1-r^2)/(n-2))
+lower = slope - qt(0.975, df=n-2) * se
+upper = slope + qt(0.975, df=n-2) * se
+message("CI Lower and Upper bounds: ", lower, " , ", upper)
+```
+
+
+
+&nbsp;
+
+##### 6.
+```{r}
+library(stringr)
+n = 235
+k = 4
+singer = read.table("../Data/singer.txt", header = TRUE)
+singer1 <- singer
+singer1 <- transform(singer1, voice.part=gsub("\\s[0-9()]+","",voice.part))
+singer1.group = factor(c(singer1$voice.part))
+lmod <- lm(singer1$height ~ singer1.group)
+anova(lmod)
+sing2 
+```
+
+&nbsp;
+
+#### 7.
+```{r}
+college <- scan(file.choose())
+highschool <- scan(file.choose())
+par(mfrow=c(2,2))
+message("College : ")
+summary(college)
+message("High School : ")
+summary(highschool)
+plot(density(college),main = "Density Plot - College")
+plot(density(highschool),main = "Density Plot - High School")
+
+cmean = mean(college)
+hmean = mean(highschool)
+cvar = var(college)
+hvar = var(highschool)
+n1 = length(college)
+n2 = length(highschool)
+deltahat = round((cmean - hmean),3)
+se = round(sqrt((cvar/n1) + (hvar/n2)),3)
+message(" Delta Hat : ", deltahat, "," , " Std. Error: ", se)
+tstat = deltahat/se #5.363
+nuhat = ((cvar/n1)+(hvar/n2))^2/(((cvar/n1)^2/(n1-1)) + ((hvar/n2)^2/(n2-1))) #593.64
+pval = 2 * (1-pt(abs(tstat),df = nuhat)) #1.176672e-07
+
+qt1 = qt(0.975,df=nuhat) # 1.964
+
+ll = deltahat - qt1 * se # 13331.89
+ul = deltahat + qt1 * se # 28740.09
+```
+
+&nbsp;
+
+#### 8
+```{r}
+sqrt((.5*(1 - .5))/1000) #.016
+pnorm (.03,0,.016) - pnorm(-.03,0,.141) 
+1/59 + 1/58 + 1/57
+```
