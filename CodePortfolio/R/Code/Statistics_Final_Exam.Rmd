@@ -175,7 +175,14 @@ singer1 <- transform(singer1, voice.part=gsub("\\s[0-9()]+","",voice.part))
 singer1.group = factor(c(singer1$voice.part))
 lmod <- lm(singer1$height ~ singer1.group)
 anova(lmod)
-sing2 
+singer2 <- subset(singer1, singer1$voice.part == "Soprano" | singer1$voice.part == "Alto" )
+singer3 <- subset(singer1, singer1$voice.part == "Tenor" | singer1$voice.part == "Bass" )
+singer2.group = factor(c(singer2$voice.part))
+singer3.group = factor(c(singer3$voice.part))
+lmod2 <- lm(singer2$height ~ singer2.group)
+lmod3 <- lm(singer3$height ~ singer3.group)
+anova(lmod2)
+anova(lmod3)
 ```
 
 &nbsp;
@@ -216,6 +223,6 @@ ul = deltahat + qt1 * se # 28740.09
 #### 8
 ```{r}
 sqrt((.5*(1 - .5))/1000) #.016
-pnorm (.03,0,.016) - pnorm(-.03,0,.141) 
+pnorm (.03,0,.016) - pnorm(-.03,0,.016) #.939
 1/59 + 1/58 + 1/57
 ```
