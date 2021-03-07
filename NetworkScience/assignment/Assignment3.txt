@@ -1,0 +1,46 @@
+
+
+Exploring social networks
+
+In this assignment, we will explore two types of social networks. One is a network of friendships, and the other is a bipartite graph of affiliations between people and organizations.
+Section 1: friendships network
+
+First, download the highschool_2012.graphml file and load it into a NetworkX graph. This graph is a real social network, a network of friendships in a high school. While exploring the network, you need to answer the following questions: 
+
+    Which node in this network has the highest degree?
+    Which node has the largest clustering coefficient?
+    What is the average clustering coefficient of the network?
+    Each node in this graph has a 'gender' attribute. Let's investigate and see if high school students are homophilous with respect to gender. To find out the gender of any node type, you could use: 
+
+G.nodes[node]['gender']
+
+where node indicates the label of the node. The answer will be  'M' (male) or 'F' (female). What proportion of the nodes in the graph are male?
+
+    Now let's compute the expected number of edges in the null model where gender has no effect on edge creation. In a random network with the same number of edges and the same proportion of male and female nodes, how many M-M edges would we expect? Round to the nearest integer.
+
+ Hint: This and the next two answers should just about sum to the total number of edges (may be off by one or so due to rounding errors).
+
+    How many F-F edges would we expect? (round to nearest integer)
+    And how many F-M edges would we expect? (round to nearest integer)
+    Now let's count the actual number of edges of each type. How many edges in this graph connect two nodes with 'M' as their 'gender' attribute?
+    How many edges connect two nodes with 'F' as their 'gender' attribute?
+    How many edges then connect nodes of different gender?
+    Given these counts as compared to the expected values, would you consider this evidence for or against a homophily bias in friendship relations among these highschoolers? Answer either For or Against.
+
+ 
+Section 2: club membership network
+
+First, download the club_membership.edgelist file and load it into a NetworkX graph. It is a bipartite graph of affiliations between people and organizations, similar to one we discussed in class. There should be 40 nodes in this dataset total; 25 people and 15 organizations. The person and organization nodes have names starting with 'p' and 'o', respectively. So you can recognize if a node is a person or an organization from the first character of the node's name. There are the questions you want to answer while exploring: 
+
+    What is the mean number of organizational affiliations per person in the data set?
+    What is the mean number of members per organization?
+    Please define a similarity measure for two nodes in a graph based on how many neighbors they have in common divided by the total number of all neighbors (don't overcount common neighbors ) of the two nodes.
+
+Implement this similarity measure as a function that takes as arguments the graph and two nodes from the same "side" of the bipartite graph (i.e. two people or two organizations). Use set algebra to compute the similarity of their neighborhoods. In the tutorial 1 exercise 3Links to an external site., we have written a function that can help. The similarity function should return a value between 0 and 1.
+
+    Which pair of people has the highest similarity?
+    What is the similarity value for this pair of people?
+    Which pair of organizations has the most similar membership?
+    What is the similarity value for that pair of organizations?
+
+Please convert your notebook into pdf format for submission. Thanks!
